@@ -40,7 +40,7 @@ float ratio = 0;
 float concentration = 0;
 
 const char * eventName =            "env-vals";    
-const char * MySiteID = "Wright Center";
+const char * MySiteID = "South Oaklan Lafayette IN";
 
 
 float field1;  
@@ -88,7 +88,7 @@ void setup()
   SeeedOled.setTextXY(2, 0);
   SeeedOled.putString("FNR498");
   SeeedOled.setTextXY(3, 0);
-  SeeedOled.putString("Sensor");
+  SeeedOled.putString("Sensors");
   SeeedOled.setTextXY(4, 0);
   SeeedOled.putString("Initializing");
 
@@ -100,6 +100,12 @@ void setup()
   {
     Serial.println("BME280 Sensor ERROR!");
   }
+
+delay(5000);
+
+  SeeedOled.setTextXY(5, 0);
+  SeeedOled.putString("Warm-Up");
+  
 
   lastInterval = millis();
 }
@@ -141,7 +147,7 @@ void loop()
     field7 = ratio;
   }
     lowpulseoccupancy = 0;
-    snprintf(msg, sizeof(msg),"{\"1\":\"%.2f\", \"2\":\"%.1f\", \"3\":\"%.2f\", \"4\":\"%.2f\", \"5\":\"%.3f\", \"6\":\"%.2f\", \"7\":\"%.1f\", \"k\":\"%s\"}", field1, field2, field3, field4, field5, field6, field7, MySiteID);
+    snprintf(msg, sizeof(msg),"{\"temp\":\"%.2f\", \"pressure\":\"%.1f\", \"humidity\":\"%.2f\", \"aq_slope\":\"%.2f\", \"voc_level\":\"%.3f\", \"lowpulseoccupancy\":\"%.2f\", \"dust\":\"%.1f\", \"deviceid\":\"%s\"}", field1, field2, field3, field4, field5, field6, field7, MySiteID);
     Particle.publish(eventName, msg, PRIVATE, NO_ACK);
 
 
